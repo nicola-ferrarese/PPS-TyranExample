@@ -46,7 +46,7 @@ jobs:
           <script type="module" src="./main.js"></script>
           </body>
           </html>' > target/scala-3.4.2/classes/index.html
-          cp target/scala-3.4.2/project-fastopt/main.js target/scala-3.4.2/classes/
+          cp target/scala-3.4.2/example-counter-fastopt/main.js target/scala-3.4.2/classes/
           cp tyrianapp.js target/scala-3.4.2/classes/
 
       - name: Deploy to GitHub Pages
