@@ -30,7 +30,7 @@ jobs:
         run: yarn install
 
       - name: Build Scala.js project
-        run: sbt fullLinkJS
+        run: sbt clean fullLinkJS
 
       - name: Build with Parcel
         run: yarn build
