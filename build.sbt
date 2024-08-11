@@ -1,4 +1,3 @@
-import scala.sys.process._
 import scala.language.postfixOps
 
 enablePlugins(ScalaJSPlugin)
