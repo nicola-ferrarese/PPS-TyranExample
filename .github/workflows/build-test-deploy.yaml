@@ -35,4 +35,4 @@ jobs:
         if: github.ref == 'refs/heads/master'
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./target/scala-3.2.2/classes
+          publish_dir: ./target/scala-3.4.2/classes
