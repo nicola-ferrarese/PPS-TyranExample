@@ -6,6 +6,9 @@ on:
   pull_request:
     branches: [ master ]
 
+permissions:
+  contents: write
+
 jobs:
   build-test-deploy:
     runs-on: ubuntu-latest
@@ -30,7 +33,7 @@ jobs:
       - name: Build and Test
         run: sbt clean compile test fastLinkJS
 
-      - name: Create index.html
+      - name: Create index.html and copy JS files
         run: |
           mkdir -p target/scala-3.4.2/classes
           echo '<html>
@@ -39,10 +42,12 @@ jobs:
           <title>Tyrian Counter Example</title>
           </head>
           <body>
-          <div id="myapp">Hello world!</div>
-          <script type="module" src="./tyrianapp.js"></script>
+          <div id="myapp"></div>
+          <script type="module" src="./main.js"></script>
           </body>
           </html>' > target/scala-3.4.2/classes/index.html
+          cp target/scala-3.4.2/project-fastopt/main.js target/scala-3.4.2/classes/
+          cp tyrianapp.js target/scala-3.4.2/classes/
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
