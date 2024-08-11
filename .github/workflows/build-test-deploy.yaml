@@ -12,46 +12,30 @@ permissions:
 jobs:
   build-test-deploy:
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v3
 
-      - name: Set up JDK 11
-        uses: actions/setup-java@v4
+      - name: Set up JDK
+        uses: actions/setup-java@v3
         with:
-          java-version: '11'
           distribution: 'adopt'
+          java-version: '11'
 
-      - name: Cache SBT dependencies
-        uses: actions/cache@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
         with:
-          path: |
-            ~/.ivy2/cache
-            ~/.sbt
-          key: ${{ runner.os }}-sbt-${{ hashFiles('**/build.sbt') }}
+          node-version: '16'
 
-      - name: Build and Test
-        run: sbt clean compile test fastLinkJS
+      - name: Install dependencies
+        run: yarn install
 
-      - name: Create index.html and copy JS files
-        run: |
-          mkdir -p target/scala-3.4.2/classes
-          echo '<html>
-          <head>
-          <meta charset="UTF-8">
-          <title>Tyrian Counter Example</title>
-          </head>
-          <body>
-          <div id="myapp"></div>
-          <script type="module" src="./tyrianapp.js"></script>
-          </body>
-          </html>' > target/scala-3.4.2/classes/index.html
-          cp target/scala-3.4.2/pps-tyranexample-fastopt/main.js target/scala-3.4.2/classes/
-          cp tyrianapp.js target/scala-3.4.2/classes/
+      - name: Build Scala.js project
+        run: sbt fullLinkJS
+
+      - name: Build with Parcel
+        run: yarn build
 
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        if: github.ref == 'refs/heads/master'
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./target/scala-3.4.2/classes
+          folder: dist
