@@ -1,6 +1,4 @@
-import {
-  TyrianApp
-} from './target/scala-3.4.2/pps-tyranexample-fastopt/main.js';
+const TyrianApp = require('./main.js').TyrianApp;
 
 console.log("Tyrian app script loaded");
 

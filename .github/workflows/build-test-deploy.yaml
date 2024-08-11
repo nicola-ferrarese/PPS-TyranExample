@@ -43,7 +43,7 @@ jobs:
           </head>
           <body>
           <div id="myapp"></div>
-          <script type="module" src="./main.js"></script>
+          <script type="module" src="./tyrianapp.js"></script>
           </body>
           </html>' > target/scala-3.4.2/classes/index.html
           cp target/scala-3.4.2/pps-tyranexample-fastopt/main.js target/scala-3.4.2/classes/

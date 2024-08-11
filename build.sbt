@@ -13,7 +13,7 @@ scalaJSLinkerConfig ~= { _.withModuleKind(ModuleKind.CommonJSModule) }
 crossScalaVersions := Seq(scala3Version)
 semanticdbEnabled  := true
 autoAPIMappings    := true
-
+scalaJSUseMainModuleInitializer := true
 libraryDependencies ++= Seq(
   "io.indigoengine" %%% "tyrian" % "0.10.0",
   "io.indigoengine" %%% "tyrian-io" % "0.10.0"
