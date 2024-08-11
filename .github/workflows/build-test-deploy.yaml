@@ -30,6 +30,20 @@ jobs:
       - name: Build and Test
         run: sbt clean compile test fastLinkJS
 
+      - name: Create index.html
+        run: |
+          mkdir -p target/scala-3.4.2/classes
+          echo '<html>
+          <head>
+          <meta charset="UTF-8">
+          <title>Tyrian Counter Example</title>
+          </head>
+          <body>
+          <div id="myapp">Hello world!</div>
+          <script type="module" src="./tyrianapp.js"></script>
+          </body>
+          </html>' > target/scala-3.4.2/classes/index.html
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         if: github.ref == 'refs/heads/master'
